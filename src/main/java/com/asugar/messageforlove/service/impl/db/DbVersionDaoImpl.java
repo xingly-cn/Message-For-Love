@@ -6,12 +6,10 @@ import com.asugar.messageforlove.mapper.db.DbVersionDao;
 import com.asugar.messageforlove.mapper.db.DbVersionRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,22 +30,13 @@ public class DbVersionDaoImpl implements DbVersionDao {
 	@Override
 	public List<String> findName() {
 		String sql = "SELECT sql_name FROM db_version ";
-		List<String> list = jdbcTemplate.query(sql, new RowMapper<String>() {
-
-			@Override
-			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return rs.getString("sql_name");
-			}
-
-		});
-		return list;
+		return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("sql_name"));
 	}
 
 	@Override
 	public List<DbVersion> findAllByStatus() {
 		String sql = "SELECT * FROM db_version where status =0";
-		List<DbVersion> list = jdbcTemplate.query(sql, new DbVersionRowMapper());
-		return list;
+		return jdbcTemplate.query(sql, new DbVersionRowMapper());
 	}
 
 	@Override

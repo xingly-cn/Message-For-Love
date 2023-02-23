@@ -6,12 +6,10 @@ import com.asugar.messageforlove.mapper.db.DbUpdateLogDao;
 import com.asugar.messageforlove.mapper.db.DbUpdateLogRowMapper;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -33,23 +31,14 @@ public class DbUpdateLogDaoImpl implements DbUpdateLogDao {
     @Override
     public List<Integer> findUpdateId() {
         String sql = "select update_id from db_update_log ";
-        List<Integer> list = jdbcTemplate.query(sql, new RowMapper<Integer>() {
 
-            @Override
-            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return rs.getInt("update_id");
-            }
-
-        });
-
-        return list;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("update_id"));
     }
 
     @Override
     public void updateById(int id) {
         String sql = "update db_update_log set statu = 1 WHERE id =" + id;
         jdbcTemplate.execute(sql);
-
     }
 
     @Override

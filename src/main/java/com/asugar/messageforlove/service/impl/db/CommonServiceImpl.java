@@ -30,13 +30,7 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public void execute() {
-
 		scanFileService.initDb();
-
-//		List<DbVersion> scanResources = scanFileService.scanResources();
-//
-//		updateSqlService.update(scanResources);
-
 	}
 
 	@Override

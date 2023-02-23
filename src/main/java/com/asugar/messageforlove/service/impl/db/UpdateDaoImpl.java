@@ -45,10 +45,7 @@ public class UpdateDaoImpl implements UpdateDao {
 
         String sql = "select count(*) from information_schema.tables where table_name = '" + tableName + "' and table_schema='" + tableSchema + "'";
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
-        if (count == 0) {
-            return false;
-        }
-        return true;
+        return count != 0;
     }
 
     @Override

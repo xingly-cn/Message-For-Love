@@ -1,4 +1,4 @@
-package com.asugar.messageforlove.service.impl;
+package com.asugar.messageforlove.service;
 
 
 import com.asugar.messageforlove.entity.Remote;

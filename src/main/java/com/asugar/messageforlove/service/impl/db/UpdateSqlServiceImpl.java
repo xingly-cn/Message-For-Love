@@ -118,7 +118,6 @@ public class UpdateSqlServiceImpl implements UpdateSqlService {
 		}
 		if (list.size() > 0)
 			dbUpdateLogDao.addLog(list);
-
 	}
 
 }

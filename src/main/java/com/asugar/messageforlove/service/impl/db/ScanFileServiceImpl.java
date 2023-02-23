@@ -49,8 +49,6 @@ public class ScanFileServiceImpl implements ScanFileService {
 				ResourceDatabasePopulator populator = new ResourceDatabasePopulator(resource);
 				populator.setSqlScriptEncoding("UTF-8");
 				updateDao.execute(populator);
-				populator = null;
-				resource = null;
 
 				resource = pmrpr.getResource("classpath:base/init_prod.sql");
 				populator = new ResourceDatabasePopulator(resource);
@@ -207,6 +205,6 @@ public class ScanFileServiceImpl implements ScanFileService {
 			}
 			return sp_1.compareTo(sp_2);
 		});
-		return list.toArray(new Resource[list.size()]);
+		return list.toArray(new Resource[0]);
 	}
 }
