@@ -44,10 +44,8 @@ public class Message implements Serializable {
     private String content;
 
     @ApiModelProperty(value = "创建时间")
-    private Date createtime;
+    private Date createTime;
 
     @ApiModelProperty(value = "发送时间")
-    private Date sendtime;
-
-
+    private Date sendTime;
 }

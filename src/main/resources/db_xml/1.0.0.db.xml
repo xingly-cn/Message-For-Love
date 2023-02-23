@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database version="1.0.0">
+
+    <update id="1" table="test_table" type="create" author="lzm"
+            time="2023-02-23 23:16"
+            remark="这里写备注:1,脚本必须以一个完整的sql语句片段,放在一个标签中,2,属性必须有值,id依次递增,且不能重复,3,不可添加注释,用属性remark,来描述">
+        CREATE TABLE IF NOT EXISTS `test_table` (
+        `id` int(11) NOT NULL
+        AUTO_INCREMENT,
+        `column_1` varchar(50) DEFAULT NULL,
+        `column_2`
+        varchar(50) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT
+        CHARSET=utf8;
+    </update>
+
+
+</database>

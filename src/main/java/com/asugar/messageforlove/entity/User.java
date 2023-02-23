@@ -12,10 +12,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author 肖念昕
  * @since 2022-04-11
  */
@@ -38,13 +34,11 @@ public class User implements Serializable {
     private Integer cost;
 
     @ApiModelProperty(value = "每日发送上线")
-    private Integer maxnum;
+    private Integer maxNum;
 
     @ApiModelProperty(value = "是否会员")
     private Integer vip;
 
     @ApiModelProperty(value = "注册时间")
     private Date time;
-
-
 }

@@ -56,7 +56,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         // 立刻发送
         if (msgVo.getSendtime() == null || msgVo.getSendtime().equals("")) {
             message.setStatus(true);
-            message.setSendtime(new Date());
+            message.setSendTime(new Date());
             int insert = baseMapper.insert(message);
             if (insert != 1) {
                 return 0;
@@ -86,11 +86,10 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         }
 
         // 判断是否已经发送
-        if (message.getStatus() == true) {
+        if (message.getStatus()) {
             return 0;
         }
 
-        int delete = baseMapper.deleteById(id);
-        return delete;
+        return baseMapper.deleteById(id);
     }
 }

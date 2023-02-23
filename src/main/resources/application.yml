@@ -10,7 +10,7 @@ spring:
     password: 213879
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gz-cynosdbmysql-grp-lbda0189.sql.tencentcdb.com:27351/message?rewriteBatchedStatements=true&useSSL=false&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://gz-cynosdbmysql-grp-lbda0189.sql.tencentcdb.com:27351/message?rewriteBatchedStatements=true&useSSL=false&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
     password: XNXxnx520@
   mvc:
