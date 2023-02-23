@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-deployment
+  namespace: default
+  labels:
+    app: message
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message
+  template:
+    metadata:
+      labels:
+        app: message
+    spec:
+      imagePullSecrets:
+        - name: default-token-9s2gm
+      containers:
+      - name: message
+        image: asugar-docker.pkg.coding.net/yifengqingshu/message/message
+        ports:
+        - containerPort: 8200

@@ -1,0 +1,23 @@
+server:
+  port: 8100
+
+spring:
+  redis:
+    host: 175.27.243.243
+    port: 6378
+    timeout: 1800000
+    database: 2
+    password: 213879
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://gz-cynosdbmysql-grp-lbda0189.sql.tencentcdb.com:27351/message?rewriteBatchedStatements=true&useSSL=false&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: XNXxnx520@
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis-plus:
+  mapper-locations: ·classpath:/xml/**.xml
