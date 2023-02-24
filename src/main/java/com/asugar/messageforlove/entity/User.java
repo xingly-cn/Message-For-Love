@@ -30,6 +30,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "微信用户ID")
     private String uid;
 
+    @ApiModelProperty(value = "商品id")
+    private String remoteId;
+
     @ApiModelProperty(value = "可发送短信数量")
     private Integer cost;
 

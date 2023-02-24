@@ -15,5 +15,15 @@
         CHARSET=utf8;
     </update>
 
+    <update id="2" table="remote" type="create" author="lzm"
+            time="2023-02-24 23:16"
+            remark="修改商品表/建立用户-商品关联">
+        ALTER table remote add `name` varchar(255) DEFAULT NULL COMMENT '名字' AFTER id;
+        ALTER table remote add `amount` int DEFAULT NULL COMMENT '数量' AFTER price;
+        ALTER table remote add PRIMARY KEY (`id`);
+        ALTER table user add `remote_id` varchar(255) DEFAULT NULL COMMENT '商品id' AFTER uid;
+    </update>
+
+
 
 </database>

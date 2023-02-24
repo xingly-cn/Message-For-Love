@@ -31,7 +31,6 @@ public class DbUpdateLogDaoImpl implements DbUpdateLogDao {
     @Override
     public List<Integer> findUpdateId() {
         String sql = "select update_id from db_update_log ";
-
         return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getInt("update_id"));
     }
 
@@ -44,7 +43,6 @@ public class DbUpdateLogDaoImpl implements DbUpdateLogDao {
     @Override
     public void execute(String sql) {
         jdbcTemplate.execute(sql);
-
     }
 
     @Override

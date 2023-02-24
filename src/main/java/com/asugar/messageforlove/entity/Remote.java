@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="User对象", description="")
+@ApiModel(value="商品", description="")
 public class Remote implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +27,12 @@ public class Remote implements Serializable {
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
+    @ApiModelProperty(value = "名字")
+    private String name;
+
     @ApiModelProperty(value = "价格")
     private String price;
+
+    @ApiModelProperty(value = "数量")
+    private Integer amount;
 }
