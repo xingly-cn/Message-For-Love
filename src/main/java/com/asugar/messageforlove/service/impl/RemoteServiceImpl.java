@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by IntelliJ IDEA.
  *
@@ -19,6 +21,37 @@ public class RemoteServiceImpl extends ServiceImpl<RemoteMapper, Remote> impleme
 
     private static Logger logger = LoggerFactory.getLogger(RemoteServiceImpl.class);
 
+    @Resource
+    private RemoteMapper remoteMapper;
 
+    @Override
+    public int deleteByPrimaryKey(Long id) {
+        return remoteMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insert(Remote record) {
+        return remoteMapper.insert(record);
+    }
+
+    @Override
+    public int insertSelective(Remote record) {
+        return remoteMapper.insertSelective(record);
+    }
+
+    @Override
+    public Remote selectByPrimaryKey(Long id) {
+        return remoteMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Remote record) {
+        return remoteMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateByPrimaryKey(Remote record) {
+        return remoteMapper.updateByPrimaryKey(record);
+    }
 
 }

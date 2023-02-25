@@ -14,4 +14,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RemoteService extends IService<Remote> {
 
+    int deleteByPrimaryKey(Long id);
+
+    int insert(Remote record);
+
+    int insertSelective(Remote record);
+
+    Remote selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(Remote record);
+
+    int updateByPrimaryKey(Remote record);
 }
