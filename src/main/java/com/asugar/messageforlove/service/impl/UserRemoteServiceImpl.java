@@ -38,13 +38,13 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     private RemoteMapper remoteMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean deleteByPrimaryKey(Long id) {
         return userRemoteMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean insert(UserRemote record) {
         if (record.getUserId()==null){
             throw new ServiceException(100,"购买用户不可以为空");
@@ -54,7 +54,7 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean insertSelective(UserRemote record) {
         return userRemoteMapper.insertSelective(record) > 0;
     }
@@ -65,13 +65,13 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean updateByPrimaryKeySelective(UserRemote record) {
         return userRemoteMapper.updateByPrimaryKeySelective(record) > 0;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean updateByPrimaryKey(UserRemote record) {
         return userRemoteMapper.updateByPrimaryKey(record) > 0;
     }
@@ -80,12 +80,12 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     public IPage<UserRemote> getUserRemotePage(Integer page, Integer size, Long userId, Long remoteId) {
         return userRemoteMapper.selectPage(new Page<>(page, size),
                 new QueryWrapper<UserRemote>()
-                        .eq("user_id", userId)
-                        .eq("remote_id", remoteId));
+                        .eq(userId!=null,"user_id", userId)
+                        .eq(remoteId!=null,"remote_id", remoteId));
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public Boolean renew(UserRemote userRemote) {
         if (userRemote.getUserId()==null){
             throw new ServiceException(100,"续费用户不可以为空");

@@ -22,7 +22,10 @@ spring:
 
 mybatis-plus:
   mapper-locations: ·classpath:/xml/**.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
-    sql: debug
+    root: info
+

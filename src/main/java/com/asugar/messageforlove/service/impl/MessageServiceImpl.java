@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,11 +39,11 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     private MessageMapper messageMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public int add(MsgVo msgVo, HttpServletRequest request) {
         String uid = request.getHeader("uid");
         // 未登录直接退出
-        if (uid == null || uid.isEmpty()) {
+        if (StringUtils.isEmpty(uid)) {
             return 0;
         }
 
@@ -82,11 +83,11 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public int withdraw(String id, HttpServletRequest request) {
         String uid = request.getHeader("uid");
         // 未登录直接退出
-        if (uid == null || uid.isEmpty()) {
+        if (StringUtils.isEmpty(uid)) {
             return 0;
         }
         Message message = baseMapper.selectById(id);

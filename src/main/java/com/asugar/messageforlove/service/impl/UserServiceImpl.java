@@ -1,6 +1,7 @@
 package com.asugar.messageforlove.service.impl;
 
 import com.asugar.messageforlove.entity.User;
+import com.asugar.messageforlove.exception.ServiceException;
 import com.asugar.messageforlove.mapper.UserMapper;
 import com.asugar.messageforlove.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = ServiceException.class)
     public int add(String uid) {
         User oo = baseMapper.selectOne(new QueryWrapper<User>().eq("uid", uid));
         if (oo != null) {
