@@ -66,8 +66,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
 
         // 定时发送
         message.setStatus(false);
-        int insert = baseMapper.insert(message);
-        return insert;
+        return baseMapper.insert(message);
     }
 
     @Override

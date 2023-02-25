@@ -18,8 +18,8 @@ import javax.annotation.Resource;
  * @Date: 2022/8/10 11:30 PM
  */
 @RestController
-@RequestMapping("/message/admin")
-@Api(tags = "价格模块")
+@RequestMapping("/message/remote")
+@Api(tags = "商品模块")
 @Slf4j
 public class RemoteController {
 
@@ -31,7 +31,7 @@ public class RemoteController {
     public R editPrice(String price) {
         Remote remote = new Remote();
         remote.setPrice(price);
-        remote.setId("1");
+        remote.setId(1L);
         int i = remoteMapper.updateById(remote);
         return R.ok().data("statsu", i);
     }

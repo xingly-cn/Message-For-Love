@@ -1,7 +1,5 @@
 package com.asugar.messageforlove.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,16 +18,12 @@ import java.util.Date;
  * @since 2022-04-11
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="Message对象", description="")
-public class Message implements Serializable {
+public class Message extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "短信ID")
-    @TableId(value = "id", type = IdType.ID_WORKER_STR)
-    private String id;
 
     @ApiModelProperty(value = "微信用户ID")
     private String uid;

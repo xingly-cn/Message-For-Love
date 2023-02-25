@@ -5,14 +5,19 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author 肖念昕
- * @since 2022-04-11
+ * Created by IntelliJ IDEA.
+ * @Author : 镜像
+ * @create 2023/2/25 19:48
  */
 @Mapper
 public interface RemoteMapper extends BaseMapper<Remote> {
+    int deleteByPrimaryKey(Long id);
 
+    int insertSelective(Remote record);
+
+    Remote selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(Remote record);
+
+    int updateByPrimaryKey(Remote record);
 }

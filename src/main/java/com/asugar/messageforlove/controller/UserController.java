@@ -23,10 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
  * @author 肖念昕
  * @since 2022-04-11
  */

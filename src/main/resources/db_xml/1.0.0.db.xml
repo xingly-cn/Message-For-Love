@@ -24,6 +24,30 @@
         ALTER table user add `remote_id` varchar(255) DEFAULT NULL COMMENT '商品id' AFTER uid;
     </update>
 
+    <update id="3" table="modify" type="update" author="lzm"
+            time="2023-02-24 23:16"
+            remark="id AUTO_INCREMENT ">
+        ALTER table user MODIFY `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID';
+        ALTER table remote MODIFY `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id';
+        ALTER table message MODIFY `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id';
+    </update>
+
+    <update id="4" table="modify" type="update" author="lzm"
+            time="2023-02-24 23:16"
+            remark="user ">
+        ALTER TABLE `user` CHANGE remote_id `amount` int NOT NULL DEFAULT '0' COMMENT '商品id';
+
+        CREATE TABLE `user_remote` (
+        `id` bigint NOT NULL,
+        `user_id` bigint DEFAULT NULL COMMENT '用户id',
+        `remote_id` bigint DEFAULT NULL COMMENT '商品id\n',
+        `is_use` char(1) DEFAULT NULL COMMENT '是否使用',
+        `create_time` datetime NOT NULL COMMENT '创建时间',
+        `update_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+        PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB COMMENT '用户/商品关联';
+    </update>
+
 
 
 </database>

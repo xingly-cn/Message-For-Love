@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2022-04-11
  */
 @RestController
-@RequestMapping("/message/message")
+@RequestMapping("/message")
 @Api(tags = "短信模块")
 public class MessageController {
 
@@ -49,7 +49,7 @@ public class MessageController {
     @GetMapping("box")
     @ApiOperation("留言板")
     public R box (String num) {
-        List<Message> list = messageService.list(new QueryWrapper<Message>().orderByDesc("createtime").last("limit " + num));
+        List<Message> list = messageService.list(new QueryWrapper<Message>().orderByDesc("create_time").last("limit " + num));
         return R.ok().data("list",list);
     }
 
