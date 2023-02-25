@@ -2,6 +2,7 @@ package com.asugar.messageforlove.service;
 
 
 import com.asugar.messageforlove.entity.Remote;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -14,9 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RemoteService extends IService<Remote> {
 
-    int deleteByPrimaryKey(Long id);
+    Boolean deleteByPrimaryKey(Long id);
 
-    int insert(Remote record);
+    Boolean insert(Remote record);
 
     int insertSelective(Remote record);
 
@@ -24,5 +25,7 @@ public interface RemoteService extends IService<Remote> {
 
     int updateByPrimaryKeySelective(Remote record);
 
-    int updateByPrimaryKey(Remote record);
+    Boolean updateByPrimaryKey(Remote record);
+
+    IPage<Remote> getRemotePage(Integer page, Integer size, String name);
 }

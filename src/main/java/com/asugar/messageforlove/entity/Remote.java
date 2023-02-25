@@ -1,6 +1,10 @@
 package com.asugar.messageforlove.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,25 +13,18 @@ import lombok.Data;
  * @create 2023/2/25 19:48
  */
 @Data
-public class Remote {
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
+@ApiModel(value="Remote对象", description="")
+public class Remote extends BaseEntity{
     private static final long serialVersionUID = 1L;
-    /**
-     * id
-     */
-    private Long id;
 
-    /**
-     * 名字
-     */
+    @ApiModelProperty(value = "名字")
     private String name;
 
-    /**
-     * 价格
-     */
+    @ApiModelProperty(value = "价格")
     private String price;
 
-    /**
-     * 数量
-     */
+    @ApiModelProperty(value ="数量")
     private Integer amount;
 }

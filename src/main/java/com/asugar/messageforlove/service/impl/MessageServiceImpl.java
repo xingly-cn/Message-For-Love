@@ -4,12 +4,16 @@ import cn.hutool.core.bean.BeanUtil;
 import com.asugar.messageforlove.entity.Message;
 import com.asugar.messageforlove.entity.User;
 import com.asugar.messageforlove.entity.vo.MsgVo;
+import com.asugar.messageforlove.exception.ServiceException;
 import com.asugar.messageforlove.mapper.MessageMapper;
 import com.asugar.messageforlove.service.MessageService;
 import com.asugar.messageforlove.service.UserService;
 import com.asugar.messageforlove.utils.PhoneSendUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +21,7 @@ import java.util.Date;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author 肖念昕
@@ -26,11 +30,11 @@ import java.util.Date;
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> implements MessageService {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public MessageServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Override
     public int add(MsgVo msgVo, HttpServletRequest request) {
@@ -66,6 +70,12 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
 
         // 定时发送
         message.setStatus(false);
+        //发送次数减
+        if (user.getAmount() < 0) {
+            throw new ServiceException(100, "次数不足，请及时进行充值");
+        }
+        user.setAmount(user.getAmount() - 1);
+        userService.updateById(user);
         return baseMapper.insert(message);
     }
 
@@ -90,5 +100,18 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         }
 
         return baseMapper.deleteById(id);
+    }
+
+    @Override
+    public IPage<Message> getMessagePage(HttpServletRequest request, String flag, long cur, long size) {
+        String uid = request.getHeader("uid");
+        QueryWrapper<Message> wrapper = new QueryWrapper<Message>().eq("uid", uid)
+                .orderByDesc("create_time");
+        if (flag.equals("1")) {
+            wrapper.eq("status", 0);
+        } else if (flag.equals("2")) {
+            wrapper.eq("status", 1);
+        }
+        return messageMapper.selectPage(new Page<>(cur, size), wrapper);
     }
 }

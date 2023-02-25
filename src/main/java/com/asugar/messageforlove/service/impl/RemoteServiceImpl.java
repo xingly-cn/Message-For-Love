@@ -3,6 +3,9 @@ package com.asugar.messageforlove.service.impl;
 import com.asugar.messageforlove.entity.Remote;
 import com.asugar.messageforlove.mapper.RemoteMapper;
 import com.asugar.messageforlove.service.RemoteService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +28,13 @@ public class RemoteServiceImpl extends ServiceImpl<RemoteMapper, Remote> impleme
     private RemoteMapper remoteMapper;
 
     @Override
-    public int deleteByPrimaryKey(Long id) {
-        return remoteMapper.deleteByPrimaryKey(id);
+    public Boolean deleteByPrimaryKey(Long id) {
+        return remoteMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
-    public int insert(Remote record) {
-        return remoteMapper.insert(record);
+    public Boolean insert(Remote record) {
+        return remoteMapper.insert(record) > 0;
     }
 
     @Override
@@ -50,8 +53,14 @@ public class RemoteServiceImpl extends ServiceImpl<RemoteMapper, Remote> impleme
     }
 
     @Override
-    public int updateByPrimaryKey(Remote record) {
-        return remoteMapper.updateByPrimaryKey(record);
+    public Boolean updateByPrimaryKey(Remote record) {
+        return remoteMapper.updateByPrimaryKey(record) > 0;
+    }
+
+    @Override
+    public IPage<Remote> getRemotePage(Integer page, Integer size, String name) {
+
+        return remoteMapper.selectPage(new Page<>(page, size), new QueryWrapper<Remote>().like("name", name));
     }
 
 }

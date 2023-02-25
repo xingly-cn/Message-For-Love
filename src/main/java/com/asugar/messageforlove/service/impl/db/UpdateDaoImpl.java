@@ -52,7 +52,6 @@ public class UpdateDaoImpl implements UpdateDao {
     public boolean showTablesCount() {
         tableSchema = jdbcUrl.substring(jdbcUrl.lastIndexOf("/") + 1, jdbcUrl.lastIndexOf("?"));
         String sql = "select count(1) from information_schema.tables where table_schema= '" + tableSchema + "'";
-
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
 		return count != 0;
 	}

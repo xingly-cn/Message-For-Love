@@ -1,10 +1,12 @@
 package com.asugar.messageforlove.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -38,8 +40,16 @@ public class Message extends BaseEntity implements Serializable {
     private String content;
 
     @ApiModelProperty(value = "创建时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     private Date createTime;
 
     @ApiModelProperty(value = "发送时间")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
     private Date sendTime;
 }

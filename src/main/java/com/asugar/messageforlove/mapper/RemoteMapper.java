@@ -20,4 +20,5 @@ public interface RemoteMapper extends BaseMapper<Remote> {
     int updateByPrimaryKeySelective(Remote record);
 
     int updateByPrimaryKey(Remote record);
+
 }

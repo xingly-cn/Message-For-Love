@@ -48,6 +48,12 @@
         ) ENGINE=InnoDB COMMENT '用户/商品关联';
     </update>
 
+    <update id="5" table="CHANGE" type="update" author="lzm"
+            time="2023-02-25 23:16"
+            remark="user_remote ">
+        ALTER TABLE user_remote CHANGE  `is_use` `renew` INT DEFAULT '0' COMMENT '续费次数';
+    </update>
+
 
 
 </database>

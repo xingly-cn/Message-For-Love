@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.asugar.messageforlove.mapper.UserRemoteMapper">
+    <resultMap id="BaseResultMap" type="com.asugar.messageforlove.entity.UserRemote">
+        <!--@Table user_remote-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="remote_id" jdbcType="BIGINT" property="remoteId"/>
+        <result column="renew" jdbcType="INTEGER" property="renew"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
+    <sql id="Base_Column_List">
+        id,
+        user_id,
+        remote_id,
+        renew,
+        create_time,
+        update_time
+    </sql>
 
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_remote
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from user_remote
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.asugar.messageforlove.entity.UserRemote" keyColumn="id" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into user_remote (id, user_id, remote_id,
+                                 renew, create_time, update_time)
+        values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{remoteId,jdbcType=BIGINT},
+                #{renew,jdbcType=INTEGER}, now(), now())
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.asugar.messageforlove.entity.UserRemote">
+        insert into user_remote
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="remoteId != null">
+                remote_id,
+            </if>
+            <if test="renew != null">
+                renew,
+            </if>
+            create_time,
+            update_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="remoteId != null">
+                #{remoteId,jdbcType=BIGINT},
+            </if>
+            <if test="renew != null">
+                #{renew,jdbcType=INTEGER},
+            </if>
+            now(),
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.asugar.messageforlove.entity.UserRemote">
+        update user_remote
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="remoteId != null">
+                remote_id = #{remoteId,jdbcType=BIGINT},
+            </if>
+            <if test="renew != null">
+                renew = #{renew,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            update_time = now(),
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.asugar.messageforlove.entity.UserRemote">
+        update user_remote
+        set user_id     = #{userId,jdbcType=BIGINT},
+            remote_id   = #{remoteId,jdbcType=BIGINT},
+            renew       = #{renew,jdbcType=INTEGER},
+            update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="renew">
+        update user_remote set renew=renew+1,update_time = now() where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

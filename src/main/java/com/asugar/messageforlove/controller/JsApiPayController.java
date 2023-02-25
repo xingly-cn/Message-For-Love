@@ -6,7 +6,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.json.JSONObject;
 import com.asugar.messageforlove.entity.Remote;
 import com.asugar.messageforlove.mapper.RemoteMapper;
-import com.asugar.messageforlove.result.R;
+import com.asugar.messageforlove.result.Result;
 import com.asugar.messageforlove.utils.WxUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.UUID;
 
 @RestController
@@ -51,18 +52,16 @@ public class JsApiPayController {
 
     @GetMapping("/findNo")
     @ApiOperation("查询订单")
-    public R findNo(String out_trade_no) {
-
-
-        return R.ok();
+    public Result<?> findNo(String out_trade_no) {
+        return Result.success();
     }
 
     @GetMapping("/createNo")
     @ApiOperation("JSAPI下单")
-    public R createPay(HttpServletRequest request) throws IOException, GeneralSecurityException, HttpCodeException, NotFoundException {
+    public Result<?> createPay(HttpServletRequest request) throws IOException, GeneralSecurityException, HttpCodeException, NotFoundException {
         String openId = request.getHeader("uid");
         if (openId == null || openId.isEmpty()) {
-            return R.notLogin();
+            return Result.notLogin();
         }
 
         // 自动获取微信证书, 第一次获取证书绕过鉴权
@@ -119,13 +118,13 @@ public class JsApiPayController {
         CloseableHttpResponse response = httpClient.execute(httpPost);
         String res = EntityUtils.toString(response.getEntity());
         JSONObject jsonObject = new JSONObject(res);
-        return R.ok().data("prepay_id", jsonObject.get("prepay_id"));
+        return Result.success(jsonObject.get("prepay_id"));
     }
 
 
     @ApiOperation("paySign")
     @GetMapping("wakePay")
-    public R wakePay(String prepay_id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public Result<?> wakePay(String prepay_id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         long time = DateUtil.currentSeconds();
         String nonstr = RandomUtil.randomString(20);
         String pack = "prepay_id=" + prepay_id;
@@ -142,10 +141,15 @@ public class JsApiPayController {
         byte[] sign = rsa.sign();
 
         String paySign = Base64.getEncoder().encodeToString(sign);
-        return R.ok().data("paySign", paySign).data("timeStamp", "" + time)
-                .data("nonceStr", nonstr)
-                .data("package", pack)
-                .data("signType", "RSA")
-                .data("nonceStr", nonstr);
+
+        HashMap<Object, Object> payMap = new HashMap<>();
+        payMap.put("paySign", paySign);
+        payMap.put("timeStamp", "" + time);
+        payMap.put("nonceStr", nonstr);
+        payMap.put("package", pack);
+        payMap.put("signType", "RSA");
+//        payMap.put("nonceStr", nonstr);
+
+        return Result.success(payMap);
     }
 }
