@@ -3,6 +3,9 @@ package com.asugar.messageforlove.service;
 import com.asugar.messageforlove.entity.UserRemote;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * @Author : 镜像
@@ -25,4 +28,6 @@ public interface UserRemoteService {
     IPage<UserRemote> getUserRemotePage(Integer page, Integer size, Long userId, Long remoteId);
 
     Boolean renew(UserRemote remote);
+
+    List<UserRemote> getUserRemoteList(HttpServletRequest request);
 }

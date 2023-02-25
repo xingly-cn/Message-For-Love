@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/message/user/remote")
@@ -42,18 +43,23 @@ public class UserRemoteController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获取用户-商品列表")
+    @ApiOperation("获取用户-商品列表-分页")
     public Result<?> getUserRemotePage(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                        @RequestParam(value = "size", defaultValue = "10") Integer size,
                                        @RequestParam(value = "userId", required = false) Long userId,
-                                       @RequestParam(value = "remoteId", required = false) Long remoteId)
-    {
-        return Result.success(userRemoteService.getUserRemotePage(page, size, userId,remoteId));
+                                       @RequestParam(value = "remoteId", required = false) Long remoteId) {
+        return Result.success(userRemoteService.getUserRemotePage(page, size, userId, remoteId));
     }
 
     @PostMapping("/renew")
     @ApiOperation("用户-商品-续费")
     public Result<?> renew(@RequestBody UserRemote remote) {
         return Result.success(userRemoteService.renew(remote));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("获取用户商品列表")
+    public Result<?> getUserRemoteList(HttpServletRequest request) {
+        return Result.success(userRemoteService.getUserRemoteList(request));
     }
 }

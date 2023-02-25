@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -84,6 +86,13 @@ public class UserRemoteServiceImpl implements UserRemoteService {
         }
         userRemoteMapper.renew(userRemote);
         return updateUserMessageAmount(userRemote);
+    }
+
+    @Override
+    public List<UserRemote> getUserRemoteList(HttpServletRequest request) {
+        String uid = request.getHeader("uid");
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("uid", uid));
+        return userRemoteMapper.selectList(new QueryWrapper<UserRemote>().eq("user_id", user.getId()));
     }
 
     private Boolean updateUserMessageAmount(UserRemote userRemote){
