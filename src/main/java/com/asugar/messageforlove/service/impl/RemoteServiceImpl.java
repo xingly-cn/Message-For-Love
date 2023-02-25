@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -28,16 +29,19 @@ public class RemoteServiceImpl extends ServiceImpl<RemoteMapper, Remote> impleme
     private RemoteMapper remoteMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean deleteByPrimaryKey(Long id) {
         return remoteMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insert(Remote record) {
         return remoteMapper.insert(record) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Remote record) {
         return remoteMapper.insertSelective(record);
     }
@@ -48,11 +52,13 @@ public class RemoteServiceImpl extends ServiceImpl<RemoteMapper, Remote> impleme
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateByPrimaryKeySelective(Remote record) {
         return remoteMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean updateByPrimaryKey(Remote record) {
         return remoteMapper.updateByPrimaryKey(record) > 0;
     }

@@ -6,6 +6,7 @@ import com.asugar.messageforlove.service.UserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int add(String uid) {
         User oo = baseMapper.selectOne(new QueryWrapper<User>().eq("uid", uid));
         if (oo != null) {

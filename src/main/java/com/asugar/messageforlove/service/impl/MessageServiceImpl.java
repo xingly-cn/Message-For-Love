@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -37,6 +38,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     private MessageMapper messageMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int add(MsgVo msgVo, HttpServletRequest request) {
         String uid = request.getHeader("uid");
         // 未登录直接退出
@@ -80,6 +82,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int withdraw(String id, HttpServletRequest request) {
         String uid = request.getHeader("uid");
         // 未登录直接退出

@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -36,13 +37,14 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     @Autowired
     private RemoteMapper remoteMapper;
 
-
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean deleteByPrimaryKey(Long id) {
         return userRemoteMapper.deleteByPrimaryKey(id) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insert(UserRemote record) {
         if (record.getUserId()==null){
             throw new ServiceException(100,"购买用户不可以为空");
@@ -52,6 +54,7 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean insertSelective(UserRemote record) {
         return userRemoteMapper.insertSelective(record) > 0;
     }
@@ -62,11 +65,13 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean updateByPrimaryKeySelective(UserRemote record) {
         return userRemoteMapper.updateByPrimaryKeySelective(record) > 0;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean updateByPrimaryKey(UserRemote record) {
         return userRemoteMapper.updateByPrimaryKey(record) > 0;
     }
@@ -80,6 +85,7 @@ public class UserRemoteServiceImpl implements UserRemoteService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean renew(UserRemote userRemote) {
         if (userRemote.getUserId()==null){
             throw new ServiceException(100,"续费用户不可以为空");
